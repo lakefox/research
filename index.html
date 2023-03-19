@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Research</title>
+    <script src="https://unpkg.com/@mozilla/readability/Readability.js"></script>
+    <script src="./js/breakSentances.js"></script>
+    <script src="./js/chunk.js"></script>
+    <script src="./js/citation.js"></script>
+    <script src="./js/hashtag.js"></script>
+    <script src="./js/keySentence.js"></script>
+    <script src="./js/search.js"></script>
+    <script src="./js/index.js"></script>
+</head>
+
+<body>
+    <nav>
+        RESEARCH
+    </nav>
+    <main>
+        <div id="qs">
+            <textarea id="questions" cols="25" rows="10"></textarea>
+            <button onclick="findLinks()">
+                Submit Query's
+            </button>
+        </div>
+        <div class="hide" id="searching">
+            <h1>SEARCHING...</h1>
+            <h2 id="query"></h2>
+            <h3 class="right"><span id="linksFound">0</span> Links Found</h3>
+        </div>
+        <div class="hide" id="fetching">
+            <h1>Reading Articles</h1>
+            <h2 id="articlename"></h2>
+            <h3 class="right"><span id="articlesread">0</span> Articles Read</h3>
+        </div>
+        <div class="hide top" id="summaries">
+            <h1>Summaries</h1>
+            <div id="results">
+
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
