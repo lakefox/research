@@ -5,7 +5,7 @@ async function findLinks() {
     let query = new vardom("#query");
     counter(0);
     query("");
-    let questions = document.querySelector("#questions").value.replace(/\n+/g,"\n").split("\n");
+    let questions = document.querySelector("#questions").value.trim().replace(/\n+/g,"\n").split("\n");
     let searchRes = {};
     for (let i = 0; i < questions.length; i++) {
         query(questions[i]);
@@ -24,7 +24,6 @@ async function getArticles(searchRes) {
     let read = new vardom("#articlesread");
     artName("");
     read(0);
-    let results = [];
     let keys = Object.keys(searchRes);
     for (let a = 0; a < keys.length; a++) {
         for (let b = 0; b < searchRes[keys[a]].length; b++) {
