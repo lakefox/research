@@ -64,22 +64,8 @@ async function genReport(url) {
     }
 
     massText = massText.map((e) => { return e.replace(/\[[0-9]+\]/g, "").replaceAll(/\s+/g, " ").replace(/\s\./g, ".").trim() })
-    let scorer = keySentence(massText.join(' '));
-    let summaries = [];
-    massText.forEach((element, i) => {
-        let sum = scorer(element);
-        sum.index = i;
-        summaries.push(sum);
-    });
-
-    summaries = summaries.filter((a) => {
-        return (typeof a.text != "undefined" && typeof a.score != "undefined" && typeof a.index != "undefined");
-    })
-
-    let sum = summaries.sort((a, b) => {
-        return a.score - b.score;
-    });
-
+    let sum = keySentence(massText.join(' '));
+    
     data.title = article.title;
     data.summaries = sum;
     data.text = massText;
