@@ -48,13 +48,13 @@ function printArticles(results) {
         html += `<h1>${keys[a]}</h1>`;
         let first = results[keys[a]][0];
         html += `<h2><a href="${first.url}" target="_blank">${first.title}</a></h2>
-        <p>${first.summaries.map(e => `<span class="sent" style="background: ${randomColor({luminosity: "light"})};">${bionic(e)}</span>`).join(" ")}</p>`;
+        <p>${first.summaries.map(e => `<span class="sent" style="text-decoration: underline 2px ${randomColor({luminosity: "bright"})};">${bionic(e)}</span>`).join(" ")}</p>`;
         for (let b = 1; b < results[keys[a]].length; b++) {
             let el = results[keys[a]][b];
             html += `
             <details>
   <summary><a href="${el.url}" target="_blank">${el.title}</a></summary>
-  <p>${el.summaries.map(e => `<span class="sent" style="background: ${randomColor({luminosity: "light"})};">${bionic(e)}</span>`).join(" ")}</p>
+  <p>${el.summaries.map(e => `<span class="sent" style="text-decoration: underline 2px ${randomColor({luminosity: "bright"})};">${bionic(e)}</span>`).join(" ")}</p>
 </details>`;
             
         }
