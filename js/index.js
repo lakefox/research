@@ -35,7 +35,6 @@ async function getArticles(searchRes) {
             read(read()+1);
         }
     }
-    console.log(searchRes);
     printArticles(searchRes);
 }
 
@@ -46,20 +45,23 @@ function printArticles(results) {
     let keys = Object.keys(results);
     for (let a = 0; a < keys.length; a++) {
         html += `<h1>${keys[a]}</h1>`;
+        results[keys[a]][0].highlights = new Array(results[keys[a]][0].summaries.length).fill(0).map(()=>{return randomColor({luminosity: "bright"})});
         let first = results[keys[a]][0];
         html += `<h2><a href="${first.url}" target="_blank">${first.title}</a></h2>
-        <p>${first.summaries.map(e => `<span class="sent" style="text-decoration: underline 2px ${randomColor({luminosity: "bright"})};">${bionic(e)}</span>`).join(" ")}</p>`;
+        <p>${first.summaries.map((e, index) => `<span class="sent" onclick="openArt(${a}, 0, ${index})" style="text-decoration: underline 2px ${first.highlights[index]};">${bionic(e)}</span>`).join(" ")}</p>`;
         for (let b = 1; b < results[keys[a]].length; b++) {
+            results[keys[a]][b].highlights = new Array(results[keys[a]][b].summaries.length).fill(0).map(()=>{return randomColor({luminosity: "bright"})});
             let el = results[keys[a]][b];
             html += `
             <details>
   <summary><a href="${el.url}" target="_blank">${el.title}</a></summary>
-  <p>${el.summaries.map(e => `<span class="sent" style="text-decoration: underline 2px ${randomColor({luminosity: "bright"})};">${bionic(e)}</span>`).join(" ")}</p>
+  <p>${el.summaries.map((e, index) => `<span class="sent" onclick="openArt(${a}, ${b}, ${index})" style="text-decoration: underline 2px ${el.highlights[index]};">${bionic(e)}</span>`).join(" ")}</p>
 </details>`;
             
         }
         html += "<br><br><br>";
     }
+    window.articles = results;
     document.querySelector("#results").innerHTML = html;
 }
 
@@ -87,4 +89,19 @@ function show(el) {
 
 function bionic(text) {
     return text.split(" ").map((e)=>{return `<strong>${e.slice(0, Math.round(e.length/2))}</strong>${e.slice(Math.round(e.length/2))}`}).join(" ");
+}
+
+function openArt(query, doc, index) {
+    document.querySelector("#doc").innerHTML = `<div onclick="(()=>{hide('#doc');show('#summaries')})()" id="exit">X</div>`+highLightSummeries(window.articles[Object.keys(window.articles)[query]][doc].article, window.articles[Object.keys(window.articles)[query]][doc]);
+    show("#doc");
+    hide("#summaries")
+}
+
+function highLightSummeries(html, article) {
+    let summaries = article.summaries;
+    for (let a = 0; a < summaries.length; a++) {
+        const sum = summaries[a];
+        html = html.replace(new RegExp(sum, "g"), `<span style="text-decoration: underline 2px ${article.highlights[a]};">${sum}</span>`);
+    }
+    return html;
 }

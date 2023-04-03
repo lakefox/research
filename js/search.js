@@ -72,6 +72,7 @@ async function genReport(url) {
     data.url = url;
     data.author = article.byline || "Unknown Uknown";
     data.site = article.siteName || "Unkown";
+    data.article = article.content;
     return data;
 }
 

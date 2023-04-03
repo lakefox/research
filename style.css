@@ -100,4 +100,30 @@ a {
 .sent {
     padding: 0 4px;
     border-radius: 2px;
+    cursor: pointer;
+    line-height: 24px;
+}
+#doc {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    left: 0;
+    font-family: "Arial", sans-serif;
+    font-size: 18px;
+    color: #262626;
+    background: #cdcdcd;
+}
+
+#exit {
+    float: right;
+    margin: 10px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.page {
+    width: 900px;
+    max-width: 90%;
+    margin: auto;
+    margin-bottom: 100px;
 }
